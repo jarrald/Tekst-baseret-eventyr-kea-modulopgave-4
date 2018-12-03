@@ -1,4 +1,5 @@
 //importing all the shit we need
+//virker det her
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
