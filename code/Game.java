@@ -96,7 +96,7 @@ public class Game
     choiceButtonPanel.setLayout(new GridLayout(4,1));
 
     choiceButton1 = new JButton("1:");
-    choiceButton1.setBackground(Color.blue);
+    choiceButton1.setBackground(Color.black);
     choiceButton1.setForeground(Color.white);
     choiceButton1.setOpaque(true);
     choiceButton1.setBorderPainted(false);
