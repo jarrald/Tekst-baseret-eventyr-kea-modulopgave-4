@@ -3,7 +3,6 @@ public class Player {
 	private int health;
 	private int position_x;
 	private int position_y;
-
 	public String getName() {
 		return this.name;
 	}
@@ -25,7 +24,9 @@ public class Player {
 	}
 
 	public Player(String name) {
-		throw new UnsupportedOperationException();
+		this.name = name;
+		health = 100;
+		position_x = 0; position_y = 0;
 	}
 
 	public int getPosition_x() {

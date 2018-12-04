@@ -20,13 +20,12 @@ public class StartMenu {
 	Font titleFont = new Font("Times New Roman", Font.PLAIN, 85);
 	Font buttonFont = new Font("Times New Roman", Font.PLAIN, 30);
 	Font textFont = new Font("Times New Roman", Font.PLAIN, 16);
-	JButton startButton, choiceButton1, choiceButton2, choiceButton3, choiceButton4;
+	JButton startButton, choiceButton1, choiceButton2, choiceButton3, choiceButton4, quitButton;
 	JTextArea mainTextArea;
 	JTextField playerNameField;
 	int playerHP;
 	String weapon;
 
-	TitleScreenHandler tsHandler = new TitleScreenHandler();
 	public static void main(String[] args)
 	{
 		new StartMenu();
@@ -36,6 +35,9 @@ public class StartMenu {
 	{
 		window = new JFrame();
 		window.setSize(800,600);
+		//window.setLocation(0, 0);
+		window.setLocationRelativeTo(null);
+		window.setVisible(true);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.getContentPane().setBackground(Color.black);
 		window.setLayout(null);
@@ -52,62 +54,51 @@ public class StartMenu {
 		startButtonPanel = new JPanel();
 		startButtonPanel.setBounds(300, 400, 200, 50);
 		startButtonPanel.setBackground(Color.black);
-		startButton = createButton("Start");
-		startButton.addActionListener(tsHandler);
+		startButton = Style.createButton("Start");
+		startButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent event){
+				startGame();
+			}
+		});
 
 		titleNamePanel.add(titleNameLabel);
 		con.add(titleNamePanel);
 		con.add(startButtonPanel);
 		startButtonPanel.add(startButton);
-
-		//quitButton = new JButton("Quit");
+		quitButton = Style.createButton("Quit");
+		startButtonPanel.add(quitButton);
+		quitButton.addActionListener(
+				new ActionListener(){
+					public void actionPerformed(ActionEvent event)
+					{
+						System.exit(0);
+					}
+				});
 
 
 		window.setVisible(true);
 	}
-	public JButton createButton(String name)
-	{
-		JButton btn = new JButton(name);
-		btn.setOpaque(true);
-		btn.setBorderPainted(false);
-		btn.setForeground(Color.white);
-		btn.setBackground(Color.black);
-		btn.setFont(buttonFont);
-		return btn;
+	public void createPlayer(String playerName){
+		Player player = new Player(playerName);
+		window = null;
 	}
-
-
-
 	public void startGame() {
 		startButton.setVisible(false);
 		titleNameLabel.setFont(textFont);
 		titleNameLabel.setText("Choose a name");
 		titleNamePanel.setSize(600, 300);
 		playerNameField = new JTextField(20);
-		JButton submitPlayerName = new JButton("submit");
-		SubmitName submitNamehandler = new SubmitName();
-		submitPlayerName.addActionListener(submitNamehandler);
-		titleNamePanel.add(playerNameField);
-		titleNamePanel.add(submitPlayerName);
+		JButton submitButton = Style.createButton("submit");
 		
-	}
-
-	public void createPlayer(String name) {
-		titleNameLabel.setText("Name choosen: " + name);
-	}
-	public class SubmitName implements ActionListener
-	{
-			public void actionPerformed(ActionEvent event)
-			{
-				playerNameField.setFont(textFont);
-				createPlayer(playerNameField.getText());
-			}
-	}
-	public class TitleScreenHandler implements ActionListener
-	{
-			public void actionPerformed(ActionEvent event)
-			{
-				startGame();
-			}
+		titleNamePanel.add(playerNameField);
+		titleNamePanel.add(submitButton);
+		submitButton.addActionListener(
+			new ActionListener(){
+				public void actionPerformed(ActionEvent event)
+				{
+					playerNameField.setFont(textFont);
+					createPlayer(playerNameField.getText());
+				}
+		});
 	}
 }
