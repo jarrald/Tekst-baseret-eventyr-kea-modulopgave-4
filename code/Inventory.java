@@ -4,8 +4,6 @@ public class Inventory {
 	private int slots;
 	private ArrayList<Item> allItems;
 	private Equipment equipped;
-	public Player _;
-	public Vector<Item> unnamed_Item_ = new Vector<Item>();
 
 	public int getSlots() {
 		return this.slots;

@@ -4,7 +4,6 @@ public class Item {
 	private int damage;
 	private String type;
 	private int health;
-	public Inventory _;
 
 	public String getName() {
 		return this.name;

@@ -2,7 +2,6 @@ public class Enemy {
 	private String type;
 	private int health;
 	private int damage;
-	public Encounter _;
 
 	public String getType() {
 		return this.type;

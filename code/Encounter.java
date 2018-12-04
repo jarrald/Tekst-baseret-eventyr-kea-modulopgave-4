@@ -2,7 +2,6 @@ public class Encounter {
 	private String text;
 	private Enemy optionalEnemy;
 	private Item optionalItem;
-	public ChoiceHandler _;
 
 	public String getText() {
 		return this.text;

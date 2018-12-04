@@ -1,6 +1,5 @@
 public class Equipment {
 	private Item weapon;
-	public Inventory _;
 
 	public Item getWeapon() {
 		return this.weapon;

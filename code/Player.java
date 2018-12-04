@@ -3,7 +3,6 @@ public class Player {
 	private int health;
 	private int position_x;
 	private int position_y;
-	public ChoiceHandler _;
 
 	public String getName() {
 		return this.name;

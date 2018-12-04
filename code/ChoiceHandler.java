@@ -2,8 +2,6 @@ public class ChoiceHandler {
 	private Player player;
 	private ArrayList<Encounter> randomEncounters;
 	private int progression;
-	public StartMenu _;
-	public Encounter _.._;
 
 	public void intro() {
 		throw new UnsupportedOperationException();
