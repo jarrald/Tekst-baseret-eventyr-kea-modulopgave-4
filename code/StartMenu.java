@@ -14,16 +14,16 @@ public class StartMenu {
 	
 	JFrame gameFrame;
 	Container con;
-	JPanel titlePanel, startButtonPanel, quitButtonPanel;
 	Font titleFont = new Font("Times New Roman", Font.PLAIN, 85);
 	Font buttonFont = new Font("Times New Roman", Font.PLAIN, 30);
 	Font textFont = new Font("Times New Roman", Font.PLAIN, 16);
-	JButton startButton, quitButton;
-	JTextArea mainTextArea;
 	TitleScreenHandler tsHandler = new TitleScreenHandler();
-
+	JTextArea mainTextArea;
 	public static void main(String[] args)
 	{
+		JButton startButton, quitButton;
+		JPanel titlePanel, startButtonPanel, quitButtonPanel;
+
 		//creating window/frame of program
 	    window = new JFrame();
 	    window.setSize(800,600);
@@ -36,7 +36,7 @@ public class StartMenu {
 	    titleNamePanel = new JPanel();
 	    titleNamePanel.setBounds(100, 100, 600, 150);
 	    titleNamePanel.setBackground(Color.black);
-	    titleNameLabel = new JLabel("PLACEHOLDER");
+	    titleNameLabel = new JLabel("The haunted house");
 	    titleNameLabel.setForeground(Color.white);
 	    titleNameLabel.setFont(titleFont);
 
@@ -45,7 +45,7 @@ public class StartMenu {
 	    startButtonPanel.setBackground(Color.black);
 
 	    //creating start button and making it clickable
-	    startButton = new JButton("START");
+	    startButton = new JButton("Start game");
 	    startButton.setBackground(Color.black);
 	    startButton.setOpaque(true);
 	    startButton.setBorderPainted(false);
@@ -63,7 +63,17 @@ public class StartMenu {
 	public ChoiceHandler _;
 
 	public static void startGame() {
+		titleNamePanel.setVisible(false);
+		startButton.setVisible(false);
+		JTextField playerNameField;
+		JButton submitPlayerName;
+		JPanel playerNameFieldPanel;
+		playerNameFieldPanel.add(playerNameField);
+		playerNameFieldPanel.add(submitPlayerName);
+		playerNameFieldPanel.setBounds(100, 100, 600, 250);
+		playerNameFieldPanel.setBackground(Color.black);
 		
+		con.add(playerNameField);
 	}
 
 	private Player createPlayer(String name) {
