@@ -3,31 +3,33 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Font;
 import java.awt.event.*;
 import java.awt.GridLayout;
+import java.awt.Dimension;
 
 public class StartMenu {
 	JFrame window;
 	Container con;
-	JPanel titleNamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, playerPanel;
+	JPanel titleNamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, playerPanel, playerNameFieldPanel;
 	JLabel titleNameLabel, hpLabel, hpLabelNumber, weaponLabel, weaponLabelName;
 	Font titleFont = new Font("Times New Roman", Font.PLAIN, 85);
 	Font buttonFont = new Font("Times New Roman", Font.PLAIN, 30);
 	Font textFont = new Font("Times New Roman", Font.PLAIN, 16);
 	JButton startButton, choiceButton1, choiceButton2, choiceButton3, choiceButton4;
 	JTextArea mainTextArea;
-
+	JTextField playerNameField;
 	int playerHP;
 	String weapon;
 
 	TitleScreenHandler tsHandler = new TitleScreenHandler();
 	public static void main(String[] args)
 	{
-		startGame();
+		new StartMenu();
 
 	}
 	public StartMenu()
@@ -43,21 +45,14 @@ public class StartMenu {
 		titleNamePanel = new JPanel();
 		titleNamePanel.setBounds(100, 100, 600, 150);
 		titleNamePanel.setBackground(Color.black);
-		titleNameLabel = new JLabel("PLACEHOLDER");
+		titleNameLabel = new JLabel("Text adventure");
 		titleNameLabel.setForeground(Color.white);
 		titleNameLabel.setFont(titleFont);
 
 		startButtonPanel = new JPanel();
 		startButtonPanel.setBounds(300, 400, 200, 50);
 		startButtonPanel.setBackground(Color.black);
-
-		//creating start button and making it clickable
-		startButton = new JButton("START");
-		startButton.setBackground(Color.black);
-		startButton.setOpaque(true);
-		startButton.setBorderPainted(false);
-		startButton.setForeground(Color.white);
-		startButton.setFont(buttonFont);
+		startButton = createButton("Start");
 		startButton.addActionListener(tsHandler);
 
 		titleNamePanel.add(titleNameLabel);
@@ -65,35 +60,46 @@ public class StartMenu {
 		con.add(startButtonPanel);
 		startButtonPanel.add(startButton);
 
+		//quitButton = new JButton("Quit");
+
+
 		window.setVisible(true);
+	}
+	public JButton createButton(String name)
+	{
+		JButton btn = new JButton(name);
+		btn.setOpaque(true);
+		btn.setBorderPainted(false);
+		btn.setForeground(Color.white);
+		btn.setBackground(Color.black);
+		btn.setFont(buttonFont);
+		return btn;
 	}
 
 
 
 	public void startGame() {
-		JTextField playerNameField;
-		JButton submitPlayerName = new JButton("Choose name");
-		JPanel playerNameFieldPanel;
-		playerNameFieldPanel.add(playerNameField);
-		playerNameFieldPanel.add(submitPlayerName);
-		playerNameFieldPanel.setBounds(100, 100, 600, 250);
-		playerNameFieldPanel.setBackground(Color.black);
+		startButton.setVisible(false);
+		titleNameLabel.setFont(textFont);
+		titleNameLabel.setText("Choose a name");
+		titleNamePanel.setSize(600, 300);
+		playerNameField = new JTextField(20);
+		JButton submitPlayerName = new JButton("submit");
 		SubmitName submitNamehandler = new SubmitName();
 		submitPlayerName.addActionListener(submitNamehandler);
-		con.add(playerNameField);
+		titleNamePanel.add(playerNameField);
+		titleNamePanel.add(submitPlayerName);
+		
 	}
 
 	public void createPlayer(String name) {
-		titleNameLabel = new JLabel("Name choosen: " + name);
-		titleNameLabel.setForeground(Color.white);
-		titleNameLabel.setFont(titleFont);
-		titleNamePanel.setVisible(true);
+		titleNameLabel.setText("Name choosen: " + name);
 	}
 	public class SubmitName implements ActionListener
 	{
 			public void actionPerformed(ActionEvent event)
 			{
-				playerNameFieldPanel.setVisible(false);
+				playerNameField.setFont(textFont);
 				createPlayer(playerNameField.getText());
 			}
 	}
@@ -101,8 +107,6 @@ public class StartMenu {
 	{
 			public void actionPerformed(ActionEvent event)
 			{
-				titleNamePanel.setVisible(false);
-				startButton.setVisible(false);
 				startGame();
 			}
 	}
