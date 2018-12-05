@@ -32,29 +32,42 @@ public class StartMenu extends JFrame implements ActionListener {
 		StartMenu startmenu = new StartMenu();
 		startmenu.loadMenu();
 	}
-	public static void startChoiceHandler(String playerName, StartMenu menudispose){
-		menudispose.window.dispose();
-		menudispose.dispose();
+	public static void startChoiceHandler(String playerName, StartMenu startmenu){
+		startmenu.window.dispose();
+		startmenu.dispose();
 		ChoiceHandler ch = new ChoiceHandler();
 		ch.playGame(playerName);
 
 	}
 	public void actionPerformed(ActionEvent e)
 	{
-		JButton btn = (JButton)e.getSource();
-		if(btn.getText().equals("Quit"))
-		{
-			window.dispose();
-			quit = true;
-		}
-		else if(btn.getText().equals("Start"))
-		{
-			startGame();
-		}
-		else if(btn.getText().equals("Submit"))
+		//Enter press on textfield
+		
+		if(e.getActionCommand().equals("Submit"))
 		{
 			StartMenu.startChoiceHandler(playerNameField.getText(), this);
 		}
+		else{
+			JButton btn = (JButton)e.getSource();
+			//JTextField field = (JTextField)e.getSource();
+			if(btn.getText().equals("Quit"))
+			{
+				window.dispose();
+				quit = true;
+			}
+			else if(btn.getText().equals("Start"))
+			{
+				startGame();
+			}
+			else if(btn.getText().equals("Submit"))
+			{
+				StartMenu.startChoiceHandler(playerNameField.getText(), this);
+			}
+			else if(e.getActionCommand().equals("Submit")){
+				
+			}
+		}
+
 	}
 	public StartMenu()
 	{
@@ -99,6 +112,7 @@ public class StartMenu extends JFrame implements ActionListener {
 		quitButton = Style.createButton("Quit");
 		startButtonPanel.add(quitButton);
 		quitButton.addActionListener(this);
+		startButton.requestFocusInWindow();
 		/*
 		quitButton.addActionListener(
 				new ActionListener(){
@@ -122,12 +136,15 @@ public class StartMenu extends JFrame implements ActionListener {
 		titleNamePanel.setSize(600, 300);
 		playerNameField = new JTextField(20);
 		//playerNameField.select(0,0);
-		playerNameField.requestFocus();
+		playerNameField.requestFocusInWindow();
 		JButton submitButton = Style.createButton("Submit");
 		
 		titleNamePanel.add(playerNameField);
 		titleNamePanel.add(submitButton);
 		submitButton.addActionListener(this);
+		playerNameField.setActionCommand("Submit");
+		playerNameField.addActionListener(this);
+		playerNameField.requestFocusInWindow();
 		/*
 		submitButton.addActionListener(
 			new ActionListener(){

@@ -19,7 +19,7 @@ public class Inventory {
 	}
 
 	public void setAllItems(ArrayList<Item> allItems) {
-		throw new UnsupportedOperationException();
+		this.allItems = allItems;
 	}
 
 	public Equipment getEquipped() {

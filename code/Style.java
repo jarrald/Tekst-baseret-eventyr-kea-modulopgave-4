@@ -15,7 +15,7 @@ import java.awt.Dimension;
 
 public class Style{
 	static Font titleFont = new Font("Times New Roman", Font.PLAIN, 85);
-	static Font buttonFont = new Font("Times New Roman", Font.PLAIN, 30);
+	static Font buttonFont = new Font("Times New Roman", Font.PLAIN, 20);
 	static Font textFont = new Font("Times New Roman", Font.PLAIN, 16);
 	static Font uifont = new Font("Times New Roman", Font.PLAIN, 25);
 	public static JButton createButton(String name)
@@ -25,6 +25,7 @@ public class Style{
 		btn.setBorderPainted(false);
 		setColor(btn);
 		btn.setFont(buttonFont);
+		//btn.setSize(150, 150);
 		return btn;
 	}
 	public static JPanel createTopUI(String playerName)
@@ -52,6 +53,7 @@ public class Style{
 
     	return topUIPanel;
 	}
+
 	public static void setColor(JButton btn){
 		btn.setForeground(Color.white);
 		btn.setBackground(Color.black);
