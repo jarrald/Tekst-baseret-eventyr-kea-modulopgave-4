@@ -12,7 +12,7 @@ import java.awt.event.*;
 import java.awt.GridLayout;
 import java.awt.Dimension;
 
-public class StartMenu {
+public class StartMenu extends JFrame implements ActionListener {
 	JFrame window;
 	Container con;
 	JPanel titleNamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, playerPanel, playerNameFieldPanel;
@@ -24,14 +24,43 @@ public class StartMenu {
 	JTextArea mainTextArea;
 	JTextField playerNameField;
 	int playerHP;
-	String weapon;
+	String weapon, playerName;
+	boolean quit;
 
 	public static void main(String[] args)
 	{
-		new StartMenu();
+		StartMenu startmenu = new StartMenu();
+		startmenu.loadMenu();
+	}
+	public static void startChoiceHandler(String playerName, StartMenu menudispose){
+		menudispose.window.dispose();
+		menudispose.dispose();
+		ChoiceHandler ch = new ChoiceHandler();
+		ch.playGame(playerName);
 
 	}
+	public void actionPerformed(ActionEvent e)
+	{
+		JButton btn = (JButton)e.getSource();
+		if(btn.getText().equals("Quit"))
+		{
+			window.dispose();
+			quit = true;
+		}
+		else if(btn.getText().equals("Start"))
+		{
+			startGame();
+		}
+		else if(btn.getText().equals("Submit"))
+		{
+			StartMenu.startChoiceHandler(playerNameField.getText(), this);
+		}
+	}
 	public StartMenu()
+	{
+		quit = false;
+	}
+	public void loadMenu()
 	{
 		window = new JFrame();
 		window.setSize(800,600);
@@ -55,18 +84,22 @@ public class StartMenu {
 		startButtonPanel.setBounds(300, 400, 200, 50);
 		startButtonPanel.setBackground(Color.black);
 		startButton = Style.createButton("Start");
+		startButton.addActionListener(this);
+		/*
 		startButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent event){
 				startGame();
 			}
 		});
-
+		*/
 		titleNamePanel.add(titleNameLabel);
 		con.add(titleNamePanel);
 		con.add(startButtonPanel);
 		startButtonPanel.add(startButton);
 		quitButton = Style.createButton("Quit");
 		startButtonPanel.add(quitButton);
+		quitButton.addActionListener(this);
+		/*
 		quitButton.addActionListener(
 				new ActionListener(){
 					public void actionPerformed(ActionEvent event)
@@ -74,7 +107,7 @@ public class StartMenu {
 						System.exit(0);
 					}
 				});
-
+		*/
 
 		window.setVisible(true);
 	}
@@ -88,17 +121,23 @@ public class StartMenu {
 		titleNameLabel.setText("Choose a name");
 		titleNamePanel.setSize(600, 300);
 		playerNameField = new JTextField(20);
-		JButton submitButton = Style.createButton("submit");
+		//playerNameField.select(0,0);
+		playerNameField.requestFocus();
+		JButton submitButton = Style.createButton("Submit");
 		
 		titleNamePanel.add(playerNameField);
 		titleNamePanel.add(submitButton);
+		submitButton.addActionListener(this);
+		/*
 		submitButton.addActionListener(
 			new ActionListener(){
 				public void actionPerformed(ActionEvent event)
 				{
 					playerNameField.setFont(textFont);
+					titleNameLabel.setText(playerNameField.getText());
 					createPlayer(playerNameField.getText());
 				}
 		});
+		*/
 	}
 }

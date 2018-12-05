@@ -4,7 +4,13 @@ public class Item {
 	private int damage;
 	private String type;
 	private int health;
-
+	public Item(String name, String description, int damage, String type, int health){
+		this.name = name;
+		this.description = description;
+		this.damage = damage;
+		this.type = type;
+		this.health = health;
+	}
 	public String getName() {
 		return this.name;
 	}

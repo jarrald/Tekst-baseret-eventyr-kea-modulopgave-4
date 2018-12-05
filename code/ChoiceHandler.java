@@ -1,46 +1,91 @@
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.JButton;
+import javax.swing.JTextArea;
+import javax.swing.SwingConstants;
+
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Font;
+import java.awt.event.*;
+import java.awt.GridLayout;
+
+import java.util.ArrayList;
 public class ChoiceHandler {
 	private Player player;
 	private ArrayList<Encounter> randomEncounters;
 	private int progression;
+  JFrame window;
+  Container con;
+  JPanel titleNamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, playerPanel;
+  JLabel titleNameLabel, hpLabel, hpLabelNumber, weaponLabel, weaponLabelName;
+  Font uifont = new Font("Times New Roman", Font.PLAIN, 25);
+  Font buttonFont = new Font("Times New Roman", Font.PLAIN, 30);
+  Font textFont = new Font("Times New Roman", Font.PLAIN, 16);
+  JButton startButton, choiceButton1, choiceButton2, choiceButton3, choiceButton4;
+  JTextArea mainTextArea;
 
+  int playerHP;
+  String weapon;
+  JPanel topUIPanel;
+  JLabel playerinfoLabel;
+  JButton inventoryButton;
 	public void intro() {
-		throw new UnsupportedOperationException();
+		
 	}
 
 	public void walk(String direction) {
-		throw new UnsupportedOperationException();
+		
 	}
 
 	public void openInventory() {
-		throw new UnsupportedOperationException();
+		
 	}
 
 	public void choiceHandler(Player player) {
-		throw new UnsupportedOperationException();
+		
 	}
 
-	public void playGame() {
-		throw new UnsupportedOperationException();
+	public void playGame(String playerName) {
+		Item startWeapon = new Item("Noob sword", "Bad sword", 10, "weapon", 0);
+		this.player = new Player(playerName);
+
+		window = new JFrame();
+		window.setSize(1100, 650);
+		//window.setLocation(0, 0);
+		window.setLocationRelativeTo(null);
+		
+		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		window.getContentPane().setBackground(Color.black);
+		window.setLayout(null);
+		con = window.getContentPane();
+
+		
+
+
+		con.add(Style.createTopUI(playerName));
+		window.setVisible(true);
 	}
 
 	public void randomEncounter() {
-		throw new UnsupportedOperationException();
+		
 	}
 
 	public void death() {
-		throw new UnsupportedOperationException();
+		
 	}
 
 	public ArrayList<Encounter> getRandomEncounters() {
-		throw new UnsupportedOperationException();
+		return new ArrayList<Encounter>();
 	}
 
 	public void setRandomEncounters(ArrayList<Encounter> randomEncounters) {
-		throw new UnsupportedOperationException();
+		
 	}
 
 	public void generateRandomEncounters() {
-		throw new UnsupportedOperationException();
+		
 	}
 
 	public int getProgression() {
