@@ -12,7 +12,35 @@ import java.awt.event.*;
 import java.awt.GridLayout;
 
 import java.util.ArrayList;
-public class ChoiceHandler {
+
+
+public class ChoiceHandler extends JFrame implements ActionListener {
+	public void actionPerformed(ActionEvent e)
+	{
+		JButton btn = (JButton)e.getSource();
+		//JTextField field = (JTextField)e.getSource();
+		if(btn.getText().equals("Forward"))
+		{
+			backButton.setVisible(false);
+		}
+
+		if(btn.getText().equals("Left"))
+		{
+			rightButton.setVisible(false);
+		}
+
+		if(btn.getText().equals("Right"))
+		{
+			leftButton.setVisible(false);
+		}
+
+		if(btn.getText().equals("Backwards"))
+		{
+			forwardButton.setVisible(false);
+		}
+	}
+
+
 	private Player player;
 	private ArrayList<Encounter> randomEncounters;
 	private int progression;
@@ -32,19 +60,19 @@ public class ChoiceHandler {
   JLabel playerinfoLabel;
   JButton inventoryButton;
 	public void intro() {
-		
+
 	}
 
 	public void walk(String direction) {
-		
+
 	}
 
 	public void openInventory() {
-		
+
 	}
 
 	public void choiceHandler(Player player) {
-		
+
 	}
 
 	public void playGame(String playerName) {
@@ -66,7 +94,7 @@ public class ChoiceHandler {
 		window = new JFrame();
 		window.setSize(1100, 650);
 		window.setLocationRelativeTo(null);
-		
+
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.getContentPane().setBackground(Color.black);
 		window.setLayout(null);
@@ -79,10 +107,14 @@ public class ChoiceHandler {
 		controlsPanel.setBackground(Color.black);
 		JButton button1 = Style.createButton("");
 		forwardButton = Style.createButton("Forward");
+		forwardButton.addActionListener(this);
 		JButton button3 = Style.createButton("");
 		leftButton = Style.createButton("Left");
+		leftButton.addActionListener(this);
 		rightButton = Style.createButton("Right");
+		rightButton.addActionListener(this);
 		backButton = Style.createButton("Back");
+		backButton.addActionListener(this);
 		controlsPanel.setLayout(new GridLayout(2,3));
 		controlsPanel.add(button1);
 		controlsPanel.add(forwardButton);
@@ -93,22 +125,29 @@ public class ChoiceHandler {
 
 		con.add(controlsPanel);
 
-		mainTextArea = new JTextArea();
+		mainTextArea = new JTextArea("Eventyret: Du har i flere år, sommer og vinter, vandret rundt i verden. Du har kun det tøj, du går i, en vandrestav, en rygsæk og nogle ganske få penge.  Sensommerdagen er ved at gå på hæld. Solen går snart ned, men du er tæt på landsbyen, hvor nogle af dine venner bor. Her regner du med at få en hyggelig aften og en god nats søvn, før du fortsætter din rejse. Ganske rigtigt. Efter en varm velkomst, et hyggeligt (og meget lækkert) måltid sætter I jer til rette i stuen. Dine venner vil jo gerne høre nyt fra den store verden og hvad du selv har oplevet. Det er langsomt blevet mørkere og i skæret af lyset fra en tændt pejs, bliver du overtalt til at fortælle om dengang, at du løste gåden om Det forbandede hus. Du fortæller, hvordan du stod foran døren ind til huset. En egetræsdør, er lukket, og ...");
 		mainTextPanel = new JPanel();
-		mainTextPanel.setBounds(100, 450, 450, 200);
-		mainTextPanel.setBackground(Color.red);
+		mainTextPanel.setBounds(200, 100, 700, 350);
+		mainTextPanel.setBackground(Color.black);
+		mainTextArea.setBounds(200, 100, 700, 350);
+		mainTextArea.setLineWrap(true);
+		mainTextArea.setWrapStyleWord(true);
+		mainTextArea.setBackground(Color.black);
+		mainTextArea.setForeground(Color.white);
+		mainTextArea.setFont(Style.textFont);
 		con.add(mainTextPanel);
+		mainTextPanel.add(mainTextArea);
 
 
 		window.setVisible(true);
 	}
 
 	public void randomEncounter() {
-		
+
 	}
 
 	public void death() {
-		
+
 	}
 
 	public ArrayList<Encounter> getRandomEncounters() {
@@ -116,11 +155,11 @@ public class ChoiceHandler {
 	}
 
 	public void setRandomEncounters(ArrayList<Encounter> randomEncounters) {
-		
+
 	}
 
 	public void generateRandomEncounters() {
-		
+
 	}
 
 	public int getProgression() {
