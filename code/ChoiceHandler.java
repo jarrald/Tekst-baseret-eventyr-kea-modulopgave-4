@@ -37,15 +37,13 @@ public class ChoiceHandler extends JFrame implements ActionListener {
 	{
 		JButton btn = (JButton)e.getSource();
 		//JTextField field = (JTextField)e.getSource();
-		if(btn.getText().equals("North"))
-		{
-			goForward();
-		}
-
 		if(btn.getText().equals("West"))
 		{
 			if(this.player.getPosition().equals("lantern")){
 				this.player.setPosition("start");
+				updateOptions();
+			}else if(this.player.getPosition().equals("start")){
+				this.player.setPosition("well");
 				updateOptions();
 			}
 		}
@@ -57,6 +55,11 @@ public class ChoiceHandler extends JFrame implements ActionListener {
 			if(this.player.getPosition().equals("start"))
 			{
 				this.player.setPosition("lantern");
+				updateOptions();
+			}
+			if(this.player.getPosition().equals("well"))
+			{
+				this.player.setPosition("start");
 				updateOptions();
 			}
 		}
@@ -93,6 +96,25 @@ public class ChoiceHandler extends JFrame implements ActionListener {
 				}
 			}
 		}
+		if(btn.getText().equals("Look down well")){
+			if(this.player.getInventory().getAllItems().contains(key)){
+				mainTextArea.setText("There's nothing there");
+			}
+			else if(this.player.getInventory().getAllItems().contains(lantern)){
+				mainTextArea.setText("There's a key at the bottom of the well");
+				toprightButton.setVisible(false);
+				topleftButton.setVisible(true);
+				topleftButton.setText("Fish for key");
+			}
+			else{
+				mainTextArea.setText("It's too dark to see");
+			}
+		}
+		if(btn.getText().equals("Fish for key")){
+			this.player.getInventory().addItem(key);
+			mainTextArea.setText("You picked up the key.");
+			topleftButton.setVisible(false);
+		}
 	}
 	public void updateOptions()
 	{
@@ -120,10 +142,20 @@ public class ChoiceHandler extends JFrame implements ActionListener {
 			"To your left is a dark well.");
 
 			}
+			topleftButton.setVisible(false);
+			toprightButton.setVisible(false);
 			rightButton.setVisible(true);
 			leftButton.setVisible(true);
 			forwardButton.setVisible(true);
 			backButton.setVisible(true);
+		}
+		else if(player.getPosition().equals("well")){
+			mainTextArea.setText("There's a bucket at the well, to your east is the place you started.");
+			toprightButton.setVisible(true);
+			forwardButton.setVisible(false);
+			leftButton.setVisible(false);
+			backButton.setVisible(false);
+			toprightButton.setText("Look down well");
 		}
 	}
 
@@ -222,10 +254,6 @@ public class ChoiceHandler extends JFrame implements ActionListener {
 
 	public void death() {
 
-	}
-
-	public void goForward() {
-		leftButton.setVisible(false);
 	}
 
 	public ArrayList<Encounter> getRandomEncounters() {
