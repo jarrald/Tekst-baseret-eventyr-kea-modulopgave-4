@@ -3,11 +3,17 @@ public class Player {
 	private int health;
 	private int position_x;
 	private int position_y;
+	private String position;
 	private Inventory inventory;
 	public String getName() {
 		return this.name;
 	}
-
+	public String getPosition(){
+		return this.position;
+	}
+	public void setPosition(String position){
+		this.position = position;
+	}
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -32,6 +38,7 @@ public class Player {
 
 	public Player(String name) {
 		this.name = name;
+		this.position = "start";
 		health = 100;
 		position_x = 0; position_y = 0;
 	}

@@ -15,28 +15,61 @@ import java.util.ArrayList;
 
 
 public class ChoiceHandler extends JFrame implements ActionListener {
+		private Player player;
+	private ArrayList<Encounter> randomEncounters;
+	private int progression;
+	JFrame window;
+	Container con;
+	JPanel controlsPanel, titleNamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, playerPanel, topUIPanel, inventoryPanel;
+	JLabel titleNameLabel, hpLabel, hpLabelNumber, weaponLabel, weaponLabelName, damageLabel, playerinfoLabel;
+	Font uifont = new Font("Times New Roman", Font.PLAIN, 25);
+	Font buttonFont = new Font("Times New Roman", Font.PLAIN, 30);
+	Font textFont = new Font("Times New Roman", Font.PLAIN, 16);
+	JButton startButton, backButton, forwardButton, leftButton, rightButton, button1, button3, inventoryButton, topleftButton, toprightButton;
+	JTextArea mainTextArea;
+	Item weapon = new Item("Noob sword", "Bad sword", 10, "weapon", 0);
+	Item lantern = new Item("Lantern", "Lights up", 0, "weapon", 0);
+	Item key = new Item("Key", "Unlocks a door somewhere", 0, "Consumable", 0);
+	Item healthPotion = new Item("Health Potion", "Restores a small amount of health", 0, "Consumable", 10);
+	public int playerHP;
+	public int damageWithoutWeapon = 5;
 	public void actionPerformed(ActionEvent e)
 	{
 		JButton btn = (JButton)e.getSource();
 		//JTextField field = (JTextField)e.getSource();
-		if(btn.getText().equals("Forward"))
+		if(btn.getText().equals("North"))
 		{
 			goForward();
 		}
 
-		if(btn.getText().equals("Left"))
+		if(btn.getText().equals("West"))
 		{
-			rightButton.setVisible(false);
+			if(this.player.getPosition().equals("lantern")){
+				this.player.setPosition("start");
+				updateOptions();
+			}
 		}
 
-		if(btn.getText().equals("Right"))
+		if(btn.getText().equals("East"))
 		{
-			leftButton.setVisible(false);
-		}
 
-		if(btn.getText().equals("Back"))
+			
+			if(this.player.getPosition().equals("start"))
+			{
+				this.player.setPosition("lantern");
+				updateOptions();
+			}
+		}
+		if(btn.getText().equals("Pick up")){
+			if(this.player.getPosition().equals("lantern")){
+				this.player.getInventory().addItem(lantern);
+				toprightButton.setVisible(false);
+				mainTextArea.setText("You picked up the lantern");
+			}
+		}
+		if(btn.getText().equals("South"))
 		{
-			forwardButton.setVisible(false);
+			
 		}
 		if(btn.getText().equals("Inventory"))
 		{
@@ -58,32 +91,43 @@ public class ChoiceHandler extends JFrame implements ActionListener {
 				for(Item item : player.getInventory().getAllItems()){
 					
 				}
-				
-				/*
-				inventoryPanel.validate();
-				inventoryPanel.repaint();
-				*/
 			}
+		}
+	}
+	public void updateOptions()
+	{
+		if(player.getPosition().equals("lantern"))
+		{
+			if(this.player.getInventory().getAllItems().contains(lantern))
+			{
+				mainTextArea.setText("There's nothing here...");
+			}
+			else{
+			mainTextArea.setText("You're next to a lantern. West of you is the end of the road, next to the house.");
+			toprightButton.setText("Pick up");
+			}
+			rightButton.setVisible(false);
+			backButton.setVisible(false);
+			forwardButton.setVisible(false);
+		}
+		else if(player.getPosition().equals("start")){
+			if(this.player.getInventory().getAllItems().contains(lantern)){
+				mainTextArea.setText("You stand in front of a wooden door, to your right is the place you picked the lantern up.\n"+
+			"To your left is a dark well.");
+			}
+			else{
+				mainTextArea.setText("You stand in front of a wooden door, to your right is a lantern.\n"+
+			"To your left is a dark well.");
+
+			}
+			rightButton.setVisible(true);
+			leftButton.setVisible(true);
+			forwardButton.setVisible(true);
+			backButton.setVisible(true);
 		}
 	}
 
 
-	private Player player;
-	private ArrayList<Encounter> randomEncounters;
-	private int progression;
-	JFrame window;
-	Container con;
-	JPanel controlsPanel, titleNamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, playerPanel, topUIPanel, inventoryPanel;
-	JLabel titleNameLabel, hpLabel, hpLabelNumber, weaponLabel, weaponLabelName, damageLabel, playerinfoLabel;
-	Font uifont = new Font("Times New Roman", Font.PLAIN, 25);
-	Font buttonFont = new Font("Times New Roman", Font.PLAIN, 30);
-	Font textFont = new Font("Times New Roman", Font.PLAIN, 16);
-	JButton startButton, backButton, forwardButton, leftButton, rightButton, button1, button3, inventoryButton, topleft, topright;
-	JTextArea mainTextArea;
-
-	public int playerHP;
-	String weapon;
-	public int damageWithoutWeapon = 5;
 
 	public void intro() {
 
@@ -103,15 +147,8 @@ public class ChoiceHandler extends JFrame implements ActionListener {
 
 	public void playGame(String playerName) {
 
-		Item weapon = new Item("Noob sword", "Bad sword", 10, "weapon", 0);
-		Item lantern = new Item("Lantern", "Lights up", 0, "weapon", 0);
-		Item key = new Item("Key", "Unlocks a door somewhere", 0, "Consumable", 0);
-		Item healthPotion = new Item("Health Potion", "Restores a small amount of health", 0, "Consumable", 10);
+		
 		ArrayList<Item> items = new ArrayList<Item>();
-		items.add(weapon);
-		items.add(lantern);
-		items.add(key);
-		items.add(healthPotion);
 		Inventory inventory = new Inventory();
 		inventory.setAllItems(items);
 
@@ -144,14 +181,8 @@ public class ChoiceHandler extends JFrame implements ActionListener {
 		createControls();
 		con.add(controlsPanel);
 
-		mainTextArea = new JTextArea("Eventyret: Du har i flere år, sommer og vinter,"+
-			" vandret rundt i verden. Du har kun det tøj, du går i, en vandrestav, en rygsæk og nogle ganske få penge. "+
-			"Sensommerdagen er ved at gå på hæld. Solen går snart ned, men du er tæt på landsbyen, hvor nogle af dine venner "+
-			"bor. Her regner du med at få en hyggelig aften og en god nats søvn, før du fortsætter din rejse. Ganske rigtigt."+
-			" Efter en varm velkomst, et hyggeligt (og meget lækkert) måltid sætter I jer til rette i stuen. Dine venner vil"+
-			" jo gerne høre nyt fra den store verden og hvad du selv har oplevet. Det er langsomt blevet mørkere og i "+
-			"skæret af lyset fra en tændt pejs, bliver du overtalt til at fortælle om dengang, at du løste gåden om Det"+
-			" forbandede hus. Du fortæller, hvordan du stod foran døren ind til huset. En egetræsdør, er lukket, og ...");
+		mainTextArea = new JTextArea("You stand in front of a wooden door, to your right is a lantern.\n"+
+			"To your left is a dark well.");
 		mainTextPanel = Style.createPanel(200,100,700,350);
 
 
@@ -171,19 +202,18 @@ public class ChoiceHandler extends JFrame implements ActionListener {
 	}
 	public void createControls(){
 		controlsPanel = Style.createPanel(350, 470, 400, 130);
-		topleft = Style.createButton("");
-		forwardButton = Style.createButton("Forward");
-		topright = Style.createButton("");
-		leftButton = Style.createButton("Left");
-		backButton = Style.createButton("Back");
-		rightButton = Style.createButton("Right");
+		topleftButton = Style.createButton("");
+		forwardButton = Style.createButton("North");
+		toprightButton = Style.createButton("");
+		leftButton = Style.createButton("West");
+		backButton = Style.createButton("South");
+		rightButton = Style.createButton("East");
 		controlsPanel.setLayout(new GridLayout(2,3));
 
-		JButton buttonArr[] = {topleft, forwardButton, topright, leftButton, backButton, rightButton};
+		JButton buttonArr[] = {topleftButton, forwardButton, toprightButton, leftButton, backButton, rightButton};
 		for (JButton button : buttonArr ) {
 			controlsPanel.add(button);
-			if(!button.getText().equals(""))
-				button.addActionListener(this);
+			button.addActionListener(this);
 		}
 	}
 	public void randomEncounter() {

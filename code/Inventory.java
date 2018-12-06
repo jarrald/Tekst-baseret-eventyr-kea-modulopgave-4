@@ -34,8 +34,9 @@ public class Inventory {
 		throw new UnsupportedOperationException();
 	}
 
-	public boolean addItem(Object item) {
-		throw new UnsupportedOperationException();
+	public boolean addItem(Item item) {
+		this.allItems.add(item);
+		return true;
 	}
 
 	public boolean dropItem(Object item) {
