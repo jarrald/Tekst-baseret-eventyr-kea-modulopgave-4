@@ -21,7 +21,7 @@ public class ChoiceHandler extends JFrame implements ActionListener {
 		//JTextField field = (JTextField)e.getSource();
 		if(btn.getText().equals("Forward"))
 		{
-			backButton.setVisible(false);
+			goForward();
 		}
 
 		if(btn.getText().equals("Left"))
@@ -37,6 +37,10 @@ public class ChoiceHandler extends JFrame implements ActionListener {
 		if(btn.getText().equals("Backwards"))
 		{
 			forwardButton.setVisible(false);
+		}
+		if(btn.getText().equals("Inventory)"))
+		{
+			inventoryButton.setVisible(false);
 		}
 	}
 
@@ -111,17 +115,17 @@ public class ChoiceHandler extends JFrame implements ActionListener {
 		JButton button3 = Style.createButton("");
 		leftButton = Style.createButton("Left");
 		leftButton.addActionListener(this);
-		rightButton = Style.createButton("Right");
-		rightButton.addActionListener(this);
 		backButton = Style.createButton("Back");
 		backButton.addActionListener(this);
+		rightButton = Style.createButton("Right");
+		rightButton.addActionListener(this);
 		controlsPanel.setLayout(new GridLayout(2,3));
 		controlsPanel.add(button1);
 		controlsPanel.add(forwardButton);
 		controlsPanel.add(button3);
 		controlsPanel.add(leftButton);
-		controlsPanel.add(rightButton);
 		controlsPanel.add(backButton);
+		controlsPanel.add(rightButton);
 
 		con.add(controlsPanel);
 
@@ -148,6 +152,10 @@ public class ChoiceHandler extends JFrame implements ActionListener {
 
 	public void death() {
 
+	}
+
+	public void goForward() {
+		leftButton.setVisible(false);
 	}
 
 	public ArrayList<Encounter> getRandomEncounters() {
