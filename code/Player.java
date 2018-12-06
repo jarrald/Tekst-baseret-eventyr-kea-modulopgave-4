@@ -4,10 +4,16 @@ public class Player {
 	private int position_x;
 	private int position_y;
 	private Inventory inventory;
+	private String position;
 	public String getName() {
 		return this.name;
 	}
-
+	public String getPosition(){
+		return this.position;
+	}
+	public void setPosition(String position){
+		this.position = position;
+	}
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -21,7 +27,6 @@ public class Player {
 	public int getHealth() {
 		return this.health;
 	}
-
 	public void setHealth(int health) {
 		this.health = health;
 	}

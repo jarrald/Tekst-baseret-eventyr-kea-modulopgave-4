@@ -64,7 +64,7 @@ public class ChoiceHandler extends JFrame implements ActionListener {
 				updateOptions();
 			}
 		}
-		if(btn.getText().equals("Unlock"){
+		if(btn.getText().equals("Unlock")){
 			forwardButton.setVisible(true);
 			mainTextArea.setText("You've unlocked and opened the door. There's a dark room in front of you.");
 		}
@@ -155,12 +155,10 @@ public class ChoiceHandler extends JFrame implements ActionListener {
 		}
 		else if(player.getPosition().equals("start")){
 			if(this.player.getInventory().getAllItems().contains(lantern)){
-				mainTextArea.setText("You stand in front of a wooden door, to your right is the place you picked the lantern up.\n"+
-			"To your left is a dark well.");
+				mainTextArea.setText("You stand in front of a wooden door, to your right is the place you picked the lantern up. To your left is a dark well.");
 			}
 			else{
-				mainTextArea.setText("You stand in front of a wooden door, to your right is a lantern.\n"+
-			"To your left is a dark well.");
+				mainTextArea.setText("You stand in front of a wooden door, to your right is a lantern. To your left is a dark well.");
 
 			}
 			topleftButton.setVisible(false);
@@ -194,11 +192,12 @@ public class ChoiceHandler extends JFrame implements ActionListener {
 		}
 		else if(player.getPosition().equals("basement")){
 			mainTextArea.setText("The basement is dark and a weird smell lingers. " +
-														"You accidentally knocked over a rusty sword on you way down, "+"
-														and it now lays at your feet.");
+														"You accidentally knocked over a rusty sword on you way down, "+
+														"and it now lays at your feet.");
 			leftButton.setVisible(false);
 			toprightButton.setText("Pick up");
 			toprightButton.setVisible(true);
+		}
 	}
 
 
