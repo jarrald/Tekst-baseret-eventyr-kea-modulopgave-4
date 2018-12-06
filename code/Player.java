@@ -3,12 +3,19 @@ public class Player {
 	private int health;
 	private int position_x;
 	private int position_y;
+	private Inventory inventory;
 	public String getName() {
 		return this.name;
 	}
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	public Inventory getInventory(){
+		return this.inventory;
+	}
+	public void setInventory(Inventory inventory){
+		this.inventory = inventory;
 	}
 
 	public int getHealth() {

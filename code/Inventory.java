@@ -15,7 +15,7 @@ public class Inventory {
 	}
 
 	public ArrayList<Item> getAllItems() {
-		throw new UnsupportedOperationException();
+		return this.allItems;
 	}
 
 	public void setAllItems(ArrayList<Item> allItems) {
