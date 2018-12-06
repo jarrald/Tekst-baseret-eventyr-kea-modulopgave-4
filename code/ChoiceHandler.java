@@ -47,9 +47,7 @@ public class ChoiceHandler extends JFrame implements ActionListener {
 				this.player.setPosition("foyer");
 				updateOptions();
 			}
-		}
-
-		if(btn.getText().equals("West"))
+		}else if(btn.getText().equals("West"))
 		{
 			if(this.player.getPosition().equals("lantern")){
 				this.player.setPosition("start");
@@ -57,19 +55,17 @@ public class ChoiceHandler extends JFrame implements ActionListener {
 			}else if(this.player.getPosition().equals("start")){
 				this.player.setPosition("well");
 				updateOptions();
-				rightButton.setVisible(false);
 			}
 			else if(this.player.getPosition().equals("foyer")){
 				this.player.setPosition("basement");
 				updateOptions();
 			}
-		}
-		if(btn.getText().equals("Unlock")){
+		}else if(btn.getText().equals("Unlock")){
+			hideButtons();
 			forwardButton.setVisible(true);
+			backButton.setVisible(true);
 			mainTextArea.setText("You've unlocked and opened the door. There's a dark room in front of you.");
-		}
-
-		if(btn.getText().equals("East"))
+		}else if(btn.getText().equals("East"))
 		{
 
 
@@ -83,19 +79,24 @@ public class ChoiceHandler extends JFrame implements ActionListener {
 				this.player.setPosition("start");
 				updateOptions();
 			}
-		}
-		if(btn.getText().equals("Pick up")){
+		}else if(btn.getText().equals("Pick up")){
 			if(this.player.getPosition().equals("lantern")){
 				this.player.getInventory().addItem(lantern);
 				toprightButton.setVisible(false);
 				mainTextArea.setText("You picked up the lantern");
 			}
-		}
-		if(btn.getText().equals("South"))
+		}else if(btn.getText().equals("South"))
 		{
+			if(player.getPosition().equals("entrance")){
+				this.player.setPosition("start");
+				updateOptions();
+			}
+			else if(player.getPosition().equals("foyer")){
+				this.player.setPosition("entrance");
+				updateOptions();
+			}
 
-		}
-		if(btn.getText().equals("Inventory"))
+		}else if(btn.getText().equals("Inventory"))
 		{
 			if(inventoryPanel.isVisible()){
 				inventoryPanel.setVisible(false);
@@ -141,6 +142,8 @@ public class ChoiceHandler extends JFrame implements ActionListener {
 	{
 		if(player.getPosition().equals("lantern"))
 		{
+			hideButtons();
+			leftButton.setVisible(true);
 			if(this.player.getInventory().getAllItems().contains(lantern))
 			{
 				mainTextArea.setText("There's nothing here...");
@@ -148,10 +151,9 @@ public class ChoiceHandler extends JFrame implements ActionListener {
 			else{
 			mainTextArea.setText("You're next to a lantern. West of you is the end of the road, next to the house.");
 			toprightButton.setText("Pick up");
+			toprightButton.setVisible(true);
 			}
-			rightButton.setVisible(false);
-			backButton.setVisible(false);
-			forwardButton.setVisible(false);
+
 		}
 		else if(player.getPosition().equals("start")){
 			if(this.player.getInventory().getAllItems().contains(lantern)){
@@ -161,8 +163,7 @@ public class ChoiceHandler extends JFrame implements ActionListener {
 				mainTextArea.setText("You stand in front of a wooden door, to your right is a lantern. To your left is a dark well.");
 
 			}
-			topleftButton.setVisible(false);
-			toprightButton.setVisible(false);
+			hideButtons();
 			rightButton.setVisible(true);
 			leftButton.setVisible(true);
 			forwardButton.setVisible(true);
@@ -170,36 +171,46 @@ public class ChoiceHandler extends JFrame implements ActionListener {
 		}
 		else if(player.getPosition().equals("well")){
 			mainTextArea.setText("There's a bucket at the well, to your east is the place you started.");
+			hideButtons();
 			toprightButton.setVisible(true);
-			forwardButton.setVisible(false);
-			leftButton.setVisible(false);
-			backButton.setVisible(false);
+			rightButton.setVisible(true);
+			rightButton.setText("East");
 			toprightButton.setText("Look down well");
 		}
 		else if(player.getPosition().equals("entrance")){
-			if(this.player.getInventory().getAllItems().contains(key)){
-				mainTextArea.setText("There's a locked door in front of you.");
+			hideButtons();
+			backButton.setVisible(true);
+			mainTextArea.setText("There's a locked door in front of you.");
+			if(this.player.getInventory().getAllItems().contains(key)){	
 				toprightButton.setVisible(true);
 				toprightButton.setText("Unlock");
-				forwardButton.setVisible(false);
-				leftButton.setVisible(false);
-				rightButton.setVisible(false);
 			}
+			
 		}
 		else if(player.getPosition().equals("foyer")){
 			mainTextArea.setText("placeholder ");
+			hideButtons();
+			backButton.setVisible(true);
 			leftButton.setVisible(true);
 		}
 		else if(player.getPosition().equals("basement")){
 			mainTextArea.setText("The basement is dark and a weird smell lingers. " +
 														"You accidentally knocked over a rusty sword on you way down, "+
 														"and it now lays at your feet.");
-			leftButton.setVisible(false);
+			hideButtons();
 			toprightButton.setText("Pick up");
 			toprightButton.setVisible(true);
 		}
 	}
-
+	public void hideButtons(){
+		
+		topleftButton.setVisible(false);
+		leftButton.setVisible(false);
+		toprightButton.setVisible(false);
+		forwardButton.setVisible(false);
+		backButton.setVisible(false);
+		rightButton.setVisible(false);
+	}
 
 
 	public void intro() {
