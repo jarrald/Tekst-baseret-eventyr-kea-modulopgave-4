@@ -28,6 +28,19 @@ public class Style{
 		//btn.setSize(150, 150);
 		return btn;
 	}
+	public static JPanel createPanel(int posX, int posY, int width, int height){
+		JPanel panel = new JPanel();
+		panel.setBounds(posX, posY, width, height);
+		panel.setBackground(Color.black);
+		return panel;
+	}
+	public static JLabel createUILabel(String text){
+		JLabel label = new JLabel(text, SwingConstants.CENTER);
+		label.setFont(uifont);
+		label.setBackground(Color.black);
+		label.setForeground(Color.white);
+		return label;
+	}
 	public static JPanel createTopUI(String playerName)
 	{
 		JPanel topUIPanel = new JPanel();
@@ -53,9 +66,22 @@ public class Style{
 
     	return topUIPanel;
 	}
+	public static JFrame createFrame(int width, int height){
+		JFrame window = new JFrame();
+		window.setSize(width, height);
+		window.setLocationRelativeTo(null);
 
+		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		window.getContentPane().setBackground(Color.black);
+		window.setLayout(null);
+		return window;
+	}
 	public static void setColor(JButton btn){
 		btn.setForeground(Color.white);
 		btn.setBackground(Color.black);
+	}
+	public static void setColor(JTextArea txtfld){
+		txtfld.setForeground(Color.white);
+		txtfld.setBackground(Color.black);
 	}
 }

@@ -75,14 +75,7 @@ public class StartMenu extends JFrame implements ActionListener {
 	}
 	public void loadMenu()
 	{
-		window = new JFrame();
-		window.setSize(800,600);
-		//window.setLocation(0, 0);
-		window.setLocationRelativeTo(null);
-		window.setVisible(true);
-		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		window.getContentPane().setBackground(Color.black);
-		window.setLayout(null);
+		window = Style.createFrame(800, 600);
 		con = window.getContentPane();
 
 		//creating a panel with a label on it (which will act as game title)
