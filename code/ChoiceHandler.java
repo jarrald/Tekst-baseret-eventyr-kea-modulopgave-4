@@ -32,6 +32,7 @@ public class ChoiceHandler extends JFrame implements ActionListener {
 	Item key = new Item("Key", "Unlocks a door somewhere", 0, "Consumable", 0);
 	Item healthPotion = new Item("Health Potion", "Restores a small amount of health", 0, "Consumable", 10);
 	boolean wardrobePotionTaken;
+	boolean treasureroomIsLit = false;
 	public int playerHP;
 	public int damageWithoutWeapon = 5;
 	public void actionPerformed(ActionEvent e)
@@ -244,7 +245,15 @@ public class ChoiceHandler extends JFrame implements ActionListener {
 		}
 	}
 	else if(player.getPosition().equals("treasureroom")){
-
+		if(!treasureroomIsLit){
+			mainTextArea.setText("You enter the room slowly, and stop just past the doorway. It's too dark to see anything.");
+			hideButtons();
+			backButton.setVisible(true);
+			toprightButton.setText("Use lantern");
+			toprightButton.setVisible(true);
+		} else{
+			mainTextArea.setText("The room lights up, and a mysterious figure appears a few meters in front of you. Behind them is a chest with a faint glow.");
+		}
 	}
 }
 
