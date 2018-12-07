@@ -1,0 +1,30 @@
+
+Strengths:
+Lave systemkrav for spillet gør at flere kan inddrages i spillet
+Casual gameplay udvider branchemulighederne, f.eks. er tunge fordybbende spil ikke så velegnede til personer som måske kun spiller mobil spil.
+Innovation i forhold til gåderne og hvordan de løses
+Cross platform udgivelse og udvikling grundet java.
+Flad organisationsstruktur (alle er lige) gør at alle inddrages og giver et godt overblik for medarbejderne
+
+Weaknesses:
+Ingen mulighed for 3D elementer da java Swing ikke er udviklet til dette.
+Spillet er lokalt(Kan crackes)
+Ingen anti-piracy measures
+Kræver java
+Udvikling i spillet går langsomt grundet få ansatte
+Lavt startkapital
+
+Opportunities:
+Lav indtrængningsbarrierer, platformer for at etablere sig som indie game development og få distributeret produktet til kunden samt markedsføring.
+- eksempler: Mange indie game development platformer.
+Online eller co-op 
+At slå sig sammen med andre udviklere
+Tilføje ads og få indtægter på den måde
+Sponsorat
+
+Threats:
+Et utal af spil som tager al opmærksomheden fra potentielle kunder og etablerede franchises.
+Leverandørene indenfor spilmarkedet har længe været de samme som næsten har monopol. Steam og sælgere af steam keys
+Andre udviklere som stjæler vores spil og forker det
+Hacking af brugerne
+Defamation - Andre som ændre spillet og udgiver det med vira i.
