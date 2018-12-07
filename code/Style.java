@@ -45,7 +45,7 @@ public class Style{
 	{
 		JPanel topUIPanel = new JPanel();
 		topUIPanel.setBounds(50, 0, 1000, 100);
-		topUIPanel.setBackground(Color.black);
+		topUIPanel.setBackground(Color.blue);
 		topUIPanel.setLayout(new GridLayout(1, 3));
 		JButton inventoryButton = Style.createButton("Inventory");
     	inventoryButton.setFont(uifont);

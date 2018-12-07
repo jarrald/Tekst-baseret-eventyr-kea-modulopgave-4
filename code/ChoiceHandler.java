@@ -31,6 +31,7 @@ public class ChoiceHandler extends JFrame implements ActionListener {
 	Item lantern = new Item("Lantern", "Lights up", 0, "weapon", 0);
 	Item key = new Item("Key", "Unlocks a door somewhere", 0, "Consumable", 0);
 	Item healthPotion = new Item("Health Potion", "Restores a small amount of health", 0, "Consumable", 10);
+	boolean wardrobePotionTaken;
 	public int playerHP;
 	public int damageWithoutWeapon = 5;
 	public void actionPerformed(ActionEvent e)
@@ -47,6 +48,10 @@ public class ChoiceHandler extends JFrame implements ActionListener {
 				this.player.setPosition("foyer");
 				updateOptions();
 			}
+			else if(this.player.getPosition().equals("basement")){
+				this.player.setPosition("treasureroom");
+				updateOptions();
+			}
 		}else if(btn.getText().equals("West"))
 		{
 			if(this.player.getPosition().equals("lantern")){
@@ -54,6 +59,9 @@ public class ChoiceHandler extends JFrame implements ActionListener {
 				updateOptions();
 			}else if(this.player.getPosition().equals("start")){
 				this.player.setPosition("well");
+				updateOptions();
+			}else if(this.player.getPosition().equals("wardrobe")){
+				this.player.setPosition("foyer");
 				updateOptions();
 			}
 			else if(this.player.getPosition().equals("foyer")){
@@ -65,6 +73,7 @@ public class ChoiceHandler extends JFrame implements ActionListener {
 			forwardButton.setVisible(true);
 			backButton.setVisible(true);
 			mainTextArea.setText("You've unlocked and opened the door. There's a dark room in front of you.");
+
 		}else if(btn.getText().equals("East"))
 		{
 
@@ -74,17 +83,35 @@ public class ChoiceHandler extends JFrame implements ActionListener {
 				this.player.setPosition("lantern");
 				updateOptions();
 			}
-			if(this.player.getPosition().equals("well"))
+			else if(this.player.getPosition().equals("well"))
 			{
 				this.player.setPosition("start");
 				updateOptions();
 			}
+			else if(this.player.getPosition().equals("foyer"))
+			{
+				this.player.setPosition("wardrobe");
+				updateOptions();
+			}
+			else if(this.player.getPosition().equals("basement")){
+				this.player.setPosition("foyer");
+				updateOptions();
+			}
+
+
 		}else if(btn.getText().equals("Pick up")){
 			if(this.player.getPosition().equals("lantern")){
 				this.player.getInventory().addItem(lantern);
 				toprightButton.setVisible(false);
 				mainTextArea.setText("You picked up the lantern");
+			}else if(player.getPosition().equals("wardrobe") && !wardrobePotionTaken){
+				this.player.getInventory().addItem(healthPotion);
+				wardrobePotionTaken = true;
+				toprightButton.setVisible(false);
+				mainTextArea.setText("You picked up the health potion");
 			}
+
+
 		}else if(btn.getText().equals("South"))
 		{
 			if(player.getPosition().equals("entrance")){
@@ -137,6 +164,7 @@ public class ChoiceHandler extends JFrame implements ActionListener {
 			mainTextArea.setText("You picked up the key.");
 			topleftButton.setVisible(false);
 		}
+
 	}
 	public void updateOptions()
 	{
@@ -167,7 +195,6 @@ public class ChoiceHandler extends JFrame implements ActionListener {
 			rightButton.setVisible(true);
 			leftButton.setVisible(true);
 			forwardButton.setVisible(true);
-			backButton.setVisible(true);
 		}
 		else if(player.getPosition().equals("well")){
 			mainTextArea.setText("There's a bucket at the well, to your east is the place you started.");
@@ -181,17 +208,17 @@ public class ChoiceHandler extends JFrame implements ActionListener {
 			hideButtons();
 			backButton.setVisible(true);
 			mainTextArea.setText("There's a locked door in front of you.");
-			if(this.player.getInventory().getAllItems().contains(key)){	
+			if(this.player.getInventory().getAllItems().contains(key)){
 				toprightButton.setVisible(true);
 				toprightButton.setText("Unlock");
 			}
-			
 		}
 		else if(player.getPosition().equals("foyer")){
-			mainTextArea.setText("placeholder ");
+			mainTextArea.setText("Your lantern lights up the dark foyer of the building. You look around the big entrance hall. To the left is a doorway down some stairs; propably leading to the basement. You can hear faint sounds coming from there. To the north of you is a staircase, but its collapsed from rot. There doesn't seem to be a way up there from this room. To the east is an old wardrobe.");
 			hideButtons();
 			backButton.setVisible(true);
 			leftButton.setVisible(true);
+			rightButton.setVisible(true);
 		}
 		else if(player.getPosition().equals("basement")){
 			mainTextArea.setText("The basement is dark and a weird smell lingers. " +
@@ -200,10 +227,29 @@ public class ChoiceHandler extends JFrame implements ActionListener {
 			hideButtons();
 			toprightButton.setText("Pick up");
 			toprightButton.setVisible(true);
+			rightButton.setVisible(true);
+			forwardButton.setVisible(true);
+		}
+		else if(player.getPosition().equals("wardrobe")){
+			if(wardrobePotionTaken){
+				mainTextArea.setText("You walk up to the wardrobe. There's a message carved into the one of the wardrobe doors. It reads \"DO NOT TRUST HIM\". There's nothing else here.");
+				hideButtons();
+				leftButton.setVisible(true);
+			}else{
+			mainTextArea.setText("You walk up to the wardrobe and open it slowly. There's a message carved into the one of the wardrobe doors. It reads \"DO NOT TRUST HIM\". There's a health potion standing on one of the shelves inside the wardrobe.");
+			hideButtons();
+			toprightButton.setText("Pick up");
+			toprightButton.setVisible(true);
+			leftButton.setVisible(true);
 		}
 	}
+	else if(player.getPosition().equals("treasureroom")){
+
+	}
+}
+
 	public void hideButtons(){
-		
+
 		topleftButton.setVisible(false);
 		leftButton.setVisible(false);
 		toprightButton.setVisible(false);
@@ -212,26 +258,9 @@ public class ChoiceHandler extends JFrame implements ActionListener {
 		rightButton.setVisible(false);
 	}
 
-
-	public void intro() {
-
-	}
-
-	public void walk(String direction) {
-
-	}
-
-	public void openInventory() {
-
-	}
-
-	public void choiceHandler(Player player) {
-
-	}
-
 	public void playGame(String playerName) {
 
-
+		wardrobePotionTaken = false;
 		ArrayList<Item> items = new ArrayList<Item>();
 		Inventory inventory = new Inventory();
 		inventory.setAllItems(items);
@@ -283,6 +312,7 @@ public class ChoiceHandler extends JFrame implements ActionListener {
 
 
 		window.setVisible(true);
+		backButton.setVisible(false);
 	}
 	public void createControls(){
 		controlsPanel = Style.createPanel(350, 470, 400, 130);
@@ -300,31 +330,8 @@ public class ChoiceHandler extends JFrame implements ActionListener {
 			button.addActionListener(this);
 		}
 	}
-	public void randomEncounter() {
-
-	}
 
 	public void death() {
 
-	}
-
-	public ArrayList<Encounter> getRandomEncounters() {
-		return new ArrayList<Encounter>();
-	}
-
-	public void setRandomEncounters(ArrayList<Encounter> randomEncounters) {
-
-	}
-
-	public void generateRandomEncounters() {
-
-	}
-
-	public int getProgression() {
-		return this.progression;
-	}
-
-	public void setProgression(int progression) {
-		this.progression = progression;
 	}
 }
