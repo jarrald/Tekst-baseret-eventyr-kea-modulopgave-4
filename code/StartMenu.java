@@ -15,15 +15,14 @@ import java.awt.Dimension;
 public class StartMenu extends JFrame implements ActionListener {
 	JFrame window;
 	Container con;
-	JPanel titleNamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, playerPanel, playerNameFieldPanel;
-	JLabel titleNameLabel, hpLabel, hpLabelNumber, weaponLabel, weaponLabelName;
+	JPanel titleNamePanel, startButtonPanel, mainTextPanel, playerPanel, playerNameFieldPanel;
+	JLabel titleNameLabel;
 	Font titleFont = new Font("Times New Roman", Font.PLAIN, 85);
 	Font buttonFont = new Font("Times New Roman", Font.PLAIN, 30);
 	Font textFont = new Font("Times New Roman", Font.PLAIN, 16);
-	JButton startButton, choiceButton1, choiceButton2, choiceButton3, choiceButton4, quitButton;
+	JButton startButton, quitButton;
 	JTextArea mainTextArea;
 	JTextField playerNameField;
-	int playerHP;
 	String weapon, playerName;
 	boolean quit;
 

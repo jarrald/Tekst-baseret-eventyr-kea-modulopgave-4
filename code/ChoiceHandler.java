@@ -3,6 +3,7 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import java.awt.Color;
@@ -18,23 +19,21 @@ public class ChoiceHandler extends JFrame implements ActionListener {
 		private Player player;
 	private ArrayList<Encounter> randomEncounters;
 	private int progression;
-	JFrame window;
-	Container con;
-	JPanel controlsPanel, titleNamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, playerPanel, topUIPanel, inventoryPanel;
-	JLabel titleNameLabel, hpLabel, hpLabelNumber, weaponLabel, weaponLabelName, damageLabel, playerinfoLabel;
-	Font uifont = new Font("Times New Roman", Font.PLAIN, 25);
-	Font buttonFont = new Font("Times New Roman", Font.PLAIN, 30);
-	Font textFont = new Font("Times New Roman", Font.PLAIN, 16);
-	JButton startButton, backButton, forwardButton, leftButton, rightButton, button1, button3, inventoryButton, topleftButton, toprightButton;
-	JTextArea mainTextArea;
-	JTextField riddleAnswerTextField;
-	Item weapon = new Item("Noob sword", "Bad sword", 10, "weapon", 0);
-	Item lantern = new Item("Lantern", "Lights up", 0, "weapon", 0);
-	Item key = new Item("Key", "Unlocks a door somewhere", 0, "Consumable", 0);
-	Item healthPotion = new Item("Health Potion", "Restores a small amount of health", 0, "Consumable", 10);
-	boolean wardrobePotionTaken;
-	boolean treasureroomIsLit = false;
-	public int playerHP;
+	public JFrame window;
+	public Container con;
+	public JPanel controlsPanel, titleNamePanel, mainTextPanel, choiceButtonPanel, playerPanel, topUIPanel, inventoryPanel;
+	public JLabel playerinfoLabel, damageLabel;
+	public Font uifont = new Font("Times New Roman", Font.PLAIN, 25);
+	public Font textFont = new Font("Times New Roman", Font.PLAIN, 16);
+	public JButton backButton, forwardButton, leftButton, rightButton, inventoryButton, topleftButton, toprightButton;
+	public JTextArea mainTextArea;
+	public JTextField riddleAnswerTextField;
+	public Item weapon = new Item("Noob sword", "Bad sword", 10, "weapon", 0);
+	public Item lantern = new Item("Lantern", "Lights up", 0, "weapon", 0);
+	public Item key = new Item("Key", "Unlocks a door somewhere", 0, "Consumable", 0);
+	public Item healthPotion = new Item("Health Potion", "Restores a small amount of health", 0, "Consumable", 10);
+	public boolean wardrobePotionTaken;
+	public boolean treasureroomIsLit = false;
 	public int damageWithoutWeapon = 5;
 	public void actionPerformed(ActionEvent e)
 	{
@@ -280,7 +279,7 @@ public class ChoiceHandler extends JFrame implements ActionListener {
 		mainTextArea.setText("If A implies B and B implies C, and D implies A, and E implies D, what does A imply?");
 		hideButtons();
 		riddleAnswerTextField = new JTextField(20);
-		riddleAnswerTextField.visible(true);
+		riddleAnswerTextField.setVisible(true);
 		riddleAnswerTextField.addActionListener(this);
 	}
 }
