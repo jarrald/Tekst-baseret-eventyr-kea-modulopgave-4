@@ -27,6 +27,7 @@ public class ChoiceHandler extends JFrame implements ActionListener {
 	Font textFont = new Font("Times New Roman", Font.PLAIN, 16);
 	JButton startButton, backButton, forwardButton, leftButton, rightButton, button1, button3, inventoryButton, topleftButton, toprightButton;
 	JTextArea mainTextArea;
+	JTextField riddleAnswerTextField;
 	Item weapon = new Item("Noob sword", "Bad sword", 10, "weapon", 0);
 	Item lantern = new Item("Lantern", "Lights up", 0, "weapon", 0);
 	Item key = new Item("Key", "Unlocks a door somewhere", 0, "Consumable", 0);
@@ -52,6 +53,18 @@ public class ChoiceHandler extends JFrame implements ActionListener {
 			else if(this.player.getPosition().equals("basement")){
 				this.player.setPosition("treasureroom");
 				updateOptions();
+			}
+			else if(btn.getText().equals("Approach")){
+				if(this.player.getPosition().equals("treasureroom")){
+					this.player.setPosition("riddle");
+					updateOptions();
+				}
+			}
+			else if(btn.getText().equals("Ready")){
+				if(this.player.getPosition().equals("riddle")){
+					this.player.setPosition("riddle2");
+					updateOptions();
+				}
 			}
 		}else if(btn.getText().equals("West"))
 		{
@@ -253,10 +266,24 @@ public class ChoiceHandler extends JFrame implements ActionListener {
 			toprightButton.setVisible(true);
 		} else{
 			mainTextArea.setText("The room lights up, and a mysterious figure appears a few meters in front of you. Behind them is a chest with a faint glow.");
+			forwardButton.setText("Approach");
+			forwardButton.setVisible(true);
 		}
 	}
+	else if(player.getPosition().equals("riddle")){
+		mainTextArea.setText("The man greets you. He continues: \"Hello stranger. I have a riddle for you to solve. If you answer correctly you will be awarded with gold and an invaluable artifact; the fabled deathbringer sword. Ready?\"");
+		hideButtons();
+		forwardButton.setText("Ready");
+		forwardButton.setVisible(true);
+	}
+	else if(player.getPosition().equals("riddle2")){
+		mainTextArea.setText("If A implies B and B implies C, and D implies A, and E implies D, what does A imply?");
+		hideButtons();
+		riddleAnswerTextField = new JTextField(20);
+		riddleAnswerTextField.visible(true);
+		riddleAnswerTextField.addActionListener(this);
+	}
 }
-
 	public void hideButtons(){
 
 		topleftButton.setVisible(false);
