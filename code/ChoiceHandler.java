@@ -41,7 +41,7 @@ public class ChoiceHandler extends JFrame implements ActionListener {
 		if(e.getActionCommand().equals("guess"))
 		{
 			String answer = riddleAnswerTextField.getText();
-			if(answer == "b" || answer == "b & c" || answer == "c" || "c & b")
+			if(answer.equalsIgnoreCase("b") || answer.equalsIgnoreCase("b & c") || answer.equalsIgnoreCase("c") || answer.equalsIgnoreCase("c & b"))
 			{
 				riddleAnswerTextField.setVisible(false);
 				this.player.setPosition("victory");
@@ -189,7 +189,7 @@ public class ChoiceHandler extends JFrame implements ActionListener {
 					}
 				}
 			}
-			if(btn.getText().equals("Look down well")){
+			else if(btn.getText().equals("Look down well")){
 				if(this.player.getInventory().getAllItems().contains(key)){
 					mainTextArea.setText("There's nothing there");
 				}
@@ -203,12 +203,22 @@ public class ChoiceHandler extends JFrame implements ActionListener {
 					mainTextArea.setText("It's too dark to see");
 				}
 			}
-			if(btn.getText().equals("Fish for key")){
+			else if(btn.getText().equals("Fish for key")){
 				this.player.getInventory().addItem(key);
 				mainTextArea.setText("You picked up the key.");
 				topleftButton.setVisible(false);
 			}
-			
+			else if(btn.getText().equals("Start over"))
+			{
+				String[] args = {"", ""};
+				StartMenu.main(args);
+				window.dispose();
+			}
+			else if(btn.getText().equals("Quit")){
+				window.dispose();
+				System.exit(0);
+			}
+
 		}
 	}
 	public void updateOptions()
@@ -320,6 +330,8 @@ public class ChoiceHandler extends JFrame implements ActionListener {
 	else if(player.getPosition().equals("victory")){
 		mainTextArea.setText("The old man disappears in a big fiery explosion and the chest bursts open, revealing the epic sword known as Deathbringer.");
 		hideButtons();
+		forwardButton.setText("Quit");
+		forwardButton.setVisible(true);
 		topUIPanel.setVisible(false);
 	}
 }
@@ -411,7 +423,7 @@ public class ChoiceHandler extends JFrame implements ActionListener {
 		hideButtons();
 		topUIPanel.setVisible(false);
 		forwardButton.setText("Start over");
-		forwardButton.setVisble(true);
+		forwardButton.setVisible(true);
 		backButton.setVisible(true);
 		backButton.setText("Quit");
 	}
