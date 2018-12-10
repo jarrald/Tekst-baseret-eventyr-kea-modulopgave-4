@@ -79,7 +79,7 @@ public class StartMenu extends JFrame implements ActionListener {
 		titleNamePanel = new JPanel();
 		titleNamePanel.setBounds(100, 100, 600, 150);
 		titleNamePanel.setBackground(Color.black);
-		titleNameLabel = new JLabel("Text adventure");
+		titleNameLabel = new JLabel("Deathbringer");
 		titleNameLabel.setForeground(Color.white);
 		titleNameLabel.setFont(titleFont);
 
