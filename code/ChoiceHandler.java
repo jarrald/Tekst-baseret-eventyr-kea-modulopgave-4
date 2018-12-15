@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 
 public class ChoiceHandler extends JFrame implements ActionListener {
-		private Player player;
+	private Player player;
 	private ArrayList<Encounter> randomEncounters;
 	private int progression;
 	public JFrame window;
@@ -28,156 +28,198 @@ public class ChoiceHandler extends JFrame implements ActionListener {
 	public JButton backButton, forwardButton, leftButton, rightButton, inventoryButton, topleftButton, toprightButton;
 	public JTextArea mainTextArea;
 	public JTextField riddleAnswerTextField;
-	public Item weapon = new Item("Noob sword", "Bad sword", 10, "weapon", 0);
+	public Item weapon = new Item("Rusty sword", "An old worn down sword", 10, "weapon", 0);
 	public Item lantern = new Item("Lantern", "Lights up", 0, "weapon", 0);
 	public Item key = new Item("Key", "Unlocks a door somewhere", 0, "Consumable", 0);
 	public Item healthPotion = new Item("Health Potion", "Restores a small amount of health", 0, "Consumable", 10);
 	public boolean wardrobePotionTaken;
+	public boolean noobSwordTaken;
 	public boolean treasureroomIsLit = false;
 	public int damageWithoutWeapon = 5;
 	public void actionPerformed(ActionEvent e)
 	{
-		JButton btn = (JButton)e.getSource();
-		//JTextField field = (JTextField)e.getSource();
-		if(btn.getText().equals("North"))
+		if(e.getActionCommand().equals("guess"))
 		{
-			if(this.player.getPosition().equals("start")){
-				this.player.setPosition("entrance");
+			String answer = riddleAnswerTextField.getText();
+			if(answer.equalsIgnoreCase("b") || answer.equalsIgnoreCase("b & c") || answer.equalsIgnoreCase("c") || answer.equalsIgnoreCase("c & b"))
+			{
+				riddleAnswerTextField.setVisible(false);
+				this.player.setPosition("victory");
 				updateOptions();
 			}
-			else if(this.player.getPosition().equals("entrance")){
-				this.player.setPosition("foyer");
-				updateOptions();
+			else{
+				death();
 			}
-			else if(this.player.getPosition().equals("basement")){
-				this.player.setPosition("treasureroom");
-				updateOptions();
-			}
-			else if(btn.getText().equals("Approach")){
-				if(this.player.getPosition().equals("treasureroom")){
-					this.player.setPosition("riddle");
+		}
+		else{
+			JButton btn = (JButton)e.getSource();
+			//JTextField field = (JTextField)e.getSource();
+			if(btn.getText().equals("North"))
+			{
+				if(this.player.getPosition().equals("start")){
+					this.player.setPosition("entrance");
+					updateOptions();
+				}
+				else if(this.player.getPosition().equals("entrance")){
+					this.player.setPosition("foyer");
+					updateOptions();
+				}
+				else if(this.player.getPosition().equals("basement")){
+					this.player.setPosition("treasureroom");
+					updateOptions();
+				}
+				else if(this.player.getPosition().equals("treasureroom")){
+
+				}
+			}else if(btn.getText().equals("Approach")){
+					if(this.player.getPosition().equals("treasureroom")){
+						this.player.setPosition("riddle");
+						updateOptions();
+					}
+				}
+				else if(btn.getText().equals("Ready")){
+					if(this.player.getPosition().equals("riddle")){
+						this.player.setPosition("riddle2");
+						updateOptions();
+					}
+				}
+
+			else if(btn.getText().equals("Use lantern")){
+					if(this.player.getPosition().equals("treasureroom")){
+					treasureroomIsLit = true;
 					updateOptions();
 				}
 			}
-			else if(btn.getText().equals("Ready")){
-				if(this.player.getPosition().equals("riddle")){
-					this.player.setPosition("riddle2");
+
+			else if(btn.getText().equals("West"))
+			{
+				if(this.player.getPosition().equals("lantern")){
+					this.player.setPosition("start");
+					updateOptions();
+				}else if(this.player.getPosition().equals("start")){
+					this.player.setPosition("well");
+					updateOptions();
+				}else if(this.player.getPosition().equals("wardrobe")){
+					this.player.setPosition("foyer");
 					updateOptions();
 				}
-			}
-		}else if(btn.getText().equals("West"))
-		{
-			if(this.player.getPosition().equals("lantern")){
-				this.player.setPosition("start");
-				updateOptions();
-			}else if(this.player.getPosition().equals("start")){
-				this.player.setPosition("well");
-				updateOptions();
-			}else if(this.player.getPosition().equals("wardrobe")){
-				this.player.setPosition("foyer");
-				updateOptions();
-			}
-			else if(this.player.getPosition().equals("foyer")){
-				this.player.setPosition("basement");
-				updateOptions();
-			}
-		}else if(btn.getText().equals("Unlock")){
-			hideButtons();
-			forwardButton.setVisible(true);
-			backButton.setVisible(true);
-			mainTextArea.setText("You've unlocked and opened the door. There's a dark room in front of you.");
-
-		}else if(btn.getText().equals("East"))
-		{
-
-
-			if(this.player.getPosition().equals("start"))
-			{
-				this.player.setPosition("lantern");
-				updateOptions();
-			}
-			else if(this.player.getPosition().equals("well"))
-			{
-				this.player.setPosition("start");
-				updateOptions();
-			}
-			else if(this.player.getPosition().equals("foyer"))
-			{
-				this.player.setPosition("wardrobe");
-				updateOptions();
-			}
-			else if(this.player.getPosition().equals("basement")){
-				this.player.setPosition("foyer");
-				updateOptions();
-			}
-
-
-		}else if(btn.getText().equals("Pick up")){
-			if(this.player.getPosition().equals("lantern")){
-				this.player.getInventory().addItem(lantern);
-				toprightButton.setVisible(false);
-				mainTextArea.setText("You picked up the lantern");
-			}else if(player.getPosition().equals("wardrobe") && !wardrobePotionTaken){
-				this.player.getInventory().addItem(healthPotion);
-				wardrobePotionTaken = true;
-				toprightButton.setVisible(false);
-				mainTextArea.setText("You picked up the health potion");
-			}
-
-
-		}else if(btn.getText().equals("South"))
-		{
-			if(player.getPosition().equals("entrance")){
-				this.player.setPosition("start");
-				updateOptions();
-			}
-			else if(player.getPosition().equals("foyer")){
-				this.player.setPosition("entrance");
-				updateOptions();
-			}
-
-		}else if(btn.getText().equals("Inventory"))
-		{
-			if(inventoryPanel.isVisible()){
-				inventoryPanel.setVisible(false);
-				inventoryPanel.removeAll();
-				mainTextPanel.setVisible(true);
-			}
-			else{
-				inventoryPanel.setVisible(true);
-				mainTextPanel.setVisible(false);
-				for(Item item : player.getInventory().getAllItems()){
-					JLabel itemNameLabel = Style.createUILabel(item.getName());
-					inventoryPanel.add(itemNameLabel);
-					JLabel itemDesc = Style.createUILabel(item.getDescription());
-					itemDesc.setFont(textFont);
-					inventoryPanel.add(itemDesc);
+				else if(this.player.getPosition().equals("foyer")){
+					this.player.setPosition("basement");
+					updateOptions();
 				}
-				for(Item item : player.getInventory().getAllItems()){
+			}else if(btn.getText().equals("Unlock")){
+				hideButtons();
+				forwardButton.setVisible(true);
+				backButton.setVisible(true);
+				mainTextArea.setText("You've unlocked and opened the door. There's a dark room in front of you.");
 
+			}else if(btn.getText().equals("East"))
+			{
+
+
+				if(this.player.getPosition().equals("start"))
+				{
+					this.player.setPosition("lantern");
+					updateOptions();
+				}
+				else if(this.player.getPosition().equals("well"))
+				{
+					this.player.setPosition("start");
+					updateOptions();
+				}
+				else if(this.player.getPosition().equals("foyer"))
+				{
+					this.player.setPosition("wardrobe");
+					updateOptions();
+				}
+				else if(this.player.getPosition().equals("basement")){
+					this.player.setPosition("foyer");
+					updateOptions();
+				}
+
+
+			}else if(btn.getText().equals("Pick up")){
+				if(this.player.getPosition().equals("lantern")){
+					this.player.getInventory().addItem(lantern);
+					toprightButton.setVisible(false);
+					mainTextArea.setText("You picked up the lantern");
+				}else if(player.getPosition().equals("wardrobe") && !wardrobePotionTaken){
+					this.player.getInventory().addItem(healthPotion);
+					wardrobePotionTaken = true;
+					toprightButton.setVisible(false);
+					mainTextArea.setText("You picked up the health potion");
+				}else if(player.getPosition().equals("basement") && !noobSwordTaken){
+					this.player.getInventory().addItem(weapon);
+					noobSwordTaken = true;
+					toprightButton.setVisible(false);
+					mainTextArea.setText("You picked up the rusty sword");
+				}
+
+
+			}else if(btn.getText().equals("South"))
+			{
+				if(player.getPosition().equals("entrance")){
+					this.player.setPosition("start");
+					updateOptions();
+				}
+				else if(player.getPosition().equals("foyer")){
+					this.player.setPosition("entrance");
+					updateOptions();
+				}
+
+			}else if(btn.getText().equals("Inventory"))
+			{
+				if(inventoryPanel.isVisible()){
+					inventoryPanel.setVisible(false);
+					inventoryPanel.removeAll();
+					mainTextPanel.setVisible(true);
+				}
+				else{
+					inventoryPanel.setVisible(true);
+					mainTextPanel.setVisible(false);
+					for(Item item : player.getInventory().getAllItems()){
+						JLabel itemNameLabel = Style.createUILabel(item.getName());
+						inventoryPanel.add(itemNameLabel);
+						JLabel itemDesc = Style.createUILabel(item.getDescription());
+						itemDesc.setFont(textFont);
+						inventoryPanel.add(itemDesc);
+					}
+					for(Item item : player.getInventory().getAllItems()){
+
+					}
 				}
 			}
-		}
-		if(btn.getText().equals("Look down well")){
-			if(this.player.getInventory().getAllItems().contains(key)){
-				mainTextArea.setText("There's nothing there");
+			else if(btn.getText().equals("Look down well")){
+				if(this.player.getInventory().getAllItems().contains(key)){
+					mainTextArea.setText("There's nothing there");
+				}
+				else if(this.player.getInventory().getAllItems().contains(lantern)){
+					mainTextArea.setText("There's a key at the bottom of the well");
+					toprightButton.setVisible(false);
+					topleftButton.setVisible(true);
+					topleftButton.setText("Fish for key");
+				}
+				else{
+					mainTextArea.setText("It's too dark to see");
+				}
 			}
-			else if(this.player.getInventory().getAllItems().contains(lantern)){
-				mainTextArea.setText("There's a key at the bottom of the well");
-				toprightButton.setVisible(false);
-				topleftButton.setVisible(true);
-				topleftButton.setText("Fish for key");
+			else if(btn.getText().equals("Fish for key")){
+				this.player.getInventory().addItem(key);
+				mainTextArea.setText("You picked up the key.");
+				topleftButton.setVisible(false);
 			}
-			else{
-				mainTextArea.setText("It's too dark to see");
+			else if(btn.getText().equals("Start over"))
+			{
+				String[] args = {"", ""};
+				StartMenu.main(args);
+				window.dispose();
 			}
-		}
-		if(btn.getText().equals("Fish for key")){
-			this.player.getInventory().addItem(key);
-			mainTextArea.setText("You picked up the key.");
-			topleftButton.setVisible(false);
-		}
+			else if(btn.getText().equals("Quit")){
+				window.dispose();
+				System.exit(0);
+			}
 
+		}
 	}
 	public void updateOptions()
 	{
@@ -267,6 +309,7 @@ public class ChoiceHandler extends JFrame implements ActionListener {
 			mainTextArea.setText("The room lights up, and a mysterious figure appears a few meters in front of you. Behind them is a chest with a faint glow.");
 			forwardButton.setText("Approach");
 			forwardButton.setVisible(true);
+			toprightButton.setVisible(false);
 		}
 	}
 	else if(player.getPosition().equals("riddle")){
@@ -281,6 +324,15 @@ public class ChoiceHandler extends JFrame implements ActionListener {
 		riddleAnswerTextField = new JTextField(20);
 		riddleAnswerTextField.setVisible(true);
 		riddleAnswerTextField.addActionListener(this);
+		riddleAnswerTextField.setActionCommand("guess");
+		mainTextPanel.add(riddleAnswerTextField);
+	}
+	else if(player.getPosition().equals("victory")){
+		mainTextArea.setText("The old man disappears in a big fiery explosion and the chest bursts open, revealing the epic sword known as Deathbringer.");
+		hideButtons();
+		forwardButton.setText("Quit");
+		forwardButton.setVisible(true);
+		topUIPanel.setVisible(false);
 	}
 }
 	public void hideButtons(){
@@ -367,6 +419,12 @@ public class ChoiceHandler extends JFrame implements ActionListener {
 	}
 
 	public void death() {
-
+		mainTextArea.setText("You died...");
+		hideButtons();
+		topUIPanel.setVisible(false);
+		forwardButton.setText("Start over");
+		forwardButton.setVisible(true);
+		backButton.setVisible(true);
+		backButton.setText("Quit");
 	}
 }
